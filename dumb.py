@@ -20,21 +20,40 @@ def findFreePosition(row, size, serverId):
 
   return -1
 
+
+
+
+
 def placeServers(servers, rows):
 
   # TODO better handling of non placed servers
 
   currentRow = 0
+  previousTrash = []
 
   for i in range(0, len(servers)):
     if currentRow == len(rows):
       currentRow = 0
+
+    currentTrash = []
+    # handle previous trash
+    for k in range(len(previousTrash)):
+      placed = findFreePosition(rows[currentRow], previousTrash[k][0], previousTrash[k][4])
+      if placed < 0:
+        currentTrash.append(previousTrash[k])
 
     placed = findFreePosition(rows[currentRow], servers[i][0], servers[i][4])
 
     # Select the next row
     if placed >= 0:
       currentRow += 1
+    #else:
+      #currentTrash.append(servers[i])
+
+    previousTrash = currentTrash
+
+
+
 
 info = input().split(" ")
 rows = int(info[0])
@@ -76,9 +95,9 @@ serversShow = sorted(servers, key=lambda servers: servers[4]) # THIS IS NOT LEGA
 
 for i in range(0,16): # for each row
 
-  nbGroup = 6
-  if i > 13:
-    nbGroup = 3
+  nbGroup = 9
+  if i > 99: #disabled
+    nbGroup = 9
 
   sumRow = 0
   for j in range(len(datacenter[i])):
@@ -87,11 +106,11 @@ for i in range(0,16): # for each row
 
   idealC = sumRow / nbGroup
 
-  indexFrom = int(i/2)*6
-  indexTo   = (int(i/2)+1)*6
+  indexFrom = int(i/3)*9
+  indexTo   = (int(i/3)+1)*9
 
-  if i > 13:
-    indexFrom = 42
+  if i > 11:
+    indexFrom = 36
     indexTo   = 45
 
   for j in range(indexFrom, indexTo): # for each group
