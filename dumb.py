@@ -25,6 +25,7 @@ def placeServers(servers, rows):
   # TODO better handling of non placed servers
 
   currentRow = 0
+
   for i in range(0, len(servers)):
     if currentRow == len(rows):
       currentRow = 0
@@ -70,17 +71,10 @@ servers = sorted(servers, key=lambda servers: servers[2], reverse=True)
 
 placeServers(servers, datacenter)
 
-serversShow = sorted(servers, key=lambda servers: servers[4]) # THIS IS NOT LEGAL TOO
+serversShow = sorted(servers, key=lambda servers: servers[4]) # THIS IS NOT LEGAL
 
 
-#Visualize datacenter
-#pprint.pprint(datacenter)
-
-#Log servers ordered
-#for s in range(serverNb):
-  #print(servers[s])
-
-for i in range(0,16): # pour chaque groupe de rangées
+for i in range(0,16): # for each row
 
   nbGroup = 6
   if i > 13:
@@ -100,12 +94,12 @@ for i in range(0,16): # pour chaque groupe de rangées
     indexFrom = 42
     indexTo   = 45
 
-  for j in range(indexFrom, indexTo): # pour chaque groupe à affecter
+  for j in range(indexFrom, indexTo): # for each group
     sumCurGr = 0
-    for k in range(len(datacenter[i])): # pour chaque case
+    for k in range(len(datacenter[i])): # pour each slot
       if datacenter[i][k] >= 0:
         currentServer = serversShow[datacenter[i][k]]
-        if currentServer[3] == -1 and currentServer[1] + sumCurGr < idealC: # todo optimize
+        if currentServer[3] == -1 and (currentServer[1] + sumCurGr < idealC or j == indexTo-1): # todo optimize
           sumCurGr += currentServer[1]
           serversShow[datacenter[i][k]] = (currentServer[0], currentServer[1], currentServer[2], j, currentServer[4]) # THIS IS NOT LEGAL
 
@@ -113,7 +107,6 @@ for i in range(0,16): # pour chaque groupe de rangées
 
 ## LETS DO THE SHOW
 
-#pprint.pprint(serverShow)
 def getPosition(serverId):
   for i in range(len(datacenter)):
     for j in range(len(datacenter[i])):
