@@ -10,9 +10,19 @@ serverNb = int(info[4])
 bannedPlacement = list()
 servers = list()
 
+datacenter = [[]]
+
+for i in range(rows):
+  datacenter.append([])
+  for j in range(placementNb):
+    datacenter[i].append(0)
+
 for b in range(bannedPlacementNb):
   ban = input().split(" ")
-  bannedPlacement.append((int(ban[0]), int(ban[1])))
+  x = (int(ban[0]))
+  y = (int(ban[1]))
+  bannedPlacement.append((x,y))
+  datacenter[x][y] = -1
 
 for s in range(serverNb):
   serv = input().split(" ")
