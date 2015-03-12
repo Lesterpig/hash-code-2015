@@ -1,5 +1,7 @@
 #!/bin/python3
 
+import pprint
+
 info = input().split(" ")
 rows = int(info[0])
 placementNb = int(info[1])
@@ -13,7 +15,8 @@ servers = list()
 datacenter = [[]]
 
 for i in range(rows):
-  datacenter.append([])
+  if i != rows - 1:
+    datacenter.append([])
   for j in range(placementNb):
     datacenter[i].append(0)
 
@@ -31,6 +34,9 @@ for s in range(serverNb):
 
 #Order by capacity/size dec
 servers = sorted(servers, key=lambda servers: servers[2], reverse=True)
+
+#Visualize datacenter
+#pprint.pprint(datacenter)
 
 #Log servers ordered
 #for s in range(serverNb):
