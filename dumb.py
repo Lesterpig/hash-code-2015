@@ -95,8 +95,8 @@ serversShow = sorted(servers, key=lambda servers: servers[4]) # THIS IS NOT LEGA
 
 for i in range(0,16): # for each row
 
-  nbGroup = 9
-  if i > 99: #disabled
+  nbGroup = 12
+  if i > 11: #disabled
     nbGroup = 9
 
   sumRow = 0
@@ -106,8 +106,8 @@ for i in range(0,16): # for each row
 
   idealC = sumRow / nbGroup
 
-  indexFrom = int(i/3)*9
-  indexTo   = (int(i/3)+1)*9
+  indexFrom = int(i/4)*12
+  indexTo   = (int(i/4)+1)*12
 
   if i > 11:
     indexFrom = 36
